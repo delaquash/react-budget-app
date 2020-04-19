@@ -15,10 +15,10 @@ function App() {
   // all expenses and add expenses
   const [expenses, setExpenses] = useState(initialExpenses);
   // Single charges
-  const [charge, setCharge] = useState('');
+  const [charge, setCharge] = useState("");
 
   // Single amount
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
 
   // Functionalities
   const handleCharge=(e)=> {
@@ -26,11 +26,22 @@ function App() {
   };
   const handleAmount=(e)=>{
     setAmount(e.target.value);
+
   }
 
-  const handleSubmit = e =>{
+  const handleSubmit = e => {
+    console.log(amount, charge)
     e.preventDefault();
-  }
+    if(charge !== '' && amount > 0){
+      // The above code using the short notation syntax in ES6 which means charges:charges === charges, same for amount
+      const singleExpense = { id:uuid(), charge, amount }
+      setExpenses([...expenses, singleExpense])
+      setCharge("");
+      // setAmount("")
+    } else {
+      // handleAlert
+    }
+  };
 
   return (
     <>
@@ -47,9 +58,10 @@ function App() {
       <ExpenseList  expenses={expenses}/>
     </main>
     <h1>
-      total spending: <span className="total">
+      total spending: {" "}
+      <span className="total">
         #{expenses.reduce((acc, curr) => {
-            return acc += curr.amount
+            return (acc += parseInt(curr.amount))
         }, 0)}
       </span>
     </h1>
