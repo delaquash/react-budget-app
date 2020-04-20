@@ -18,7 +18,7 @@ function App() {
   const [charge, setCharge] = useState("");
 
   // Single amount
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
 
   // Functionalities
   const handleCharge=(e)=> {
@@ -35,9 +35,13 @@ function App() {
     if(charge !== '' && amount > 0){
       // The above code using the short notation syntax in ES6 which means charges:charges === charges, same for amount
       const singleExpense = { id:uuid(), charge, amount }
-      setExpenses([...expenses, singleExpense])
+      // setExpenses([...expenses, singleExpense])
+      setExpenses(previousStateExpenses => [
+        ...previousStateExpenses,
+        singleExpense
+      ]);
       setCharge("");
-      // setAmount("")
+      setAmount("")
     } else {
       // handleAlert
     }
