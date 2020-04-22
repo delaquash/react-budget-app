@@ -18,7 +18,10 @@ function App() {
   const [charge, setCharge] = useState("");
 
   // Single amount
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
+  // hadleAlert
+   const [ alert, setAlert ] =  useState({ show: false });
+
 
   // Functionalities
   const handleCharge=(e)=> {
@@ -28,11 +31,19 @@ function App() {
     setAmount(e.target.value);
 
   }
+ const handleAlert = ({type, text}) => {
+        setAlert({show:true, type, text});
+        setTimeout(() => {
+            setAlert({ show: false })
+        }, 4000);
+    };
+
+
 
   const handleSubmit = e => {
-    console.log(amount, charge)
+    // console.log(amount, charge)
     e.preventDefault();
-    if(charge !== '' && amount > 0){
+    if(charge !== '' && amount > "" ){
       // The above code using the short notation syntax in ES6 which means charges:charges === charges, same for amount
       const singleExpense = { id:uuid(), charge, amount }
       // setExpenses([...expenses, singleExpense])
@@ -40,16 +51,20 @@ function App() {
         ...previousStateExpenses,
         singleExpense
       ]);
+      handleAlert({type:"success", text:"Items added successfully"});
       setCharge("");
-      setAmount("")
+      setAmount("");
+
     } else {
       // handleAlert
+
     }
   };
 
   return (
     <>
-    <Alert />
+     {alert.show && <Alert type={alert.type} text={alert.text} />}
+    <Alert alert={alert} />
     <h1>Budget Calculator</h1>
     <main className="App">
       <ExpenseForm
