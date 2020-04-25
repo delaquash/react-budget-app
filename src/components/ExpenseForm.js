@@ -25,7 +25,7 @@ const ExpenseForm = ({amount, charge, expenses, handleCharge, handleAmount, hand
                                 className="form-control"
                                 id="amount"
                                 name="amount"
-                                placeholder="Enter value here"
+                                placeholder="Enter amount paid here e.g 100"
                                 value={amount}
                                 onChange={handleAmount}
                         />
